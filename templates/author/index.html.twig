@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AuthorController!{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-5">
+        <h1>Список авторов</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 10%">#</th>
+                    <th scope="col" style="width: 30%">Имя</th>
+                    <th scope="col" style="width: 30%">Фамилия</th>
+                    <th scope="col" style="width: 30%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>
+                        <div class="float-right">
+                            <button type="button" class="btn btn-primary">Редактировать</button>
+                            <button type="button" class="btn btn-primary">Список книг</button>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-primary">Добавить автора</button>
+    </div>
+{% endblock %}
