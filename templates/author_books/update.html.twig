@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Редактирование книги{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-5">
+        <div class="mx-auto" style="width: 30%">
+            <h1>Редактирование книги</h1>
+                {{ form_start(form) }}
+                    {{ form_errors(form) }}
+
+                    {{ form_row(form.title, { 'attr': {'class': 'form-control'}, 'label': 'Название'}) }}
+                    {{ form_row(form.year, { 'attr': {'class': 'form-control'}, 'label': 'Год'}) }}
+                    {{ form_row(form.save, { 'attr' :{'class': 'btn btn-primary mt-3'}, 'label': 'Редактировать' }) }}
+
+                {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

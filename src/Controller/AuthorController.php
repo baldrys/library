@@ -64,16 +64,4 @@ class AuthorController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-    /**
-     * @Route("/authors/{author}/books", name="author_books")
-     */
-    public function getBooks(Author $author)
-    {
-        $books =  $author->getBooks();
-        return $this->render('author/books.html.twig', [
-            'author' => $author,
-            'books' => $books
-        ]);
-    }
 }

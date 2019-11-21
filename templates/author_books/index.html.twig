@@ -23,15 +23,15 @@
                         <td>{{ book.year }}</td>
                         <td>
                             <div class="float-right">
-                                <a href="#"><button type="button" class="btn btn-primary">Редактировать</button></a>
-                                <a href="#"><button type="button" class="btn btn-danger">Удалить</button></a>
+                                <a href="{{ path('update_book', { 'author': author.id, 'book': book.id}) }}"><button type="button" class="btn btn-primary">Редактировать</button></a>
+                                <a href="{{ path('delete_book', { 'author': author.id, 'book': book.id}) }}"><button type="button" class="btn btn-danger">Удалить</button></a>
                             </div>
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <a href="#"><button type="button" class="btn btn-primary">Добавить книгу </button></a>
+        <a href="{{ path('create_book', { 'author': author.id}) }}"><button type="button" class="btn btn-primary">Добавить книгу </button></a>
 
         
     </div>
