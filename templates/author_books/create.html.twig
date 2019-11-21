@@ -1,20 +1,5 @@
-{% extends 'base.html.twig' %}
+{% extends '/author_books/layouts/form.html.twig' %}
 
 {% block title %}Добавление книги{% endblock %}
-
-{% block body %}
-
-    <div class="container mt-5">
-        <div class="mx-auto" style="width: 30%">
-            <h1>Добавление книги</h1>
-                {{ form_start(form) }}
-                    {{ form_errors(form) }}
-
-                    {{ form_row(form.title, { 'attr': {'class': 'form-control'}, 'label': 'Название'}) }}
-                    {{ form_row(form.year, { 'attr': {'class': 'form-control'}, 'label': 'Год'}) }}
-                    {{ form_row(form.save, { 'attr' :{'class': 'btn btn-primary mt-3'}, 'label': 'Добавить' }) }}
-
-                {{ form_end(form) }}
-        </div>
-    </div>
-{% endblock %}
+{% set formHeading = 'Добавить книгу' %}
+{% set formLable = 'Добавить' %}
