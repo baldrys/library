@@ -4,11 +4,10 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Author;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Response;
-use App\Form\AuthorType;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\AuthorRepository;
+use App\Form\AuthorType;
+use App\Entity\Author;
 
 
 class AuthorController extends AbstractController
@@ -16,11 +15,9 @@ class AuthorController extends AbstractController
     /**
      * @Route("/", name="authors")
      */
-    public function index()
+    public function index(AuthorRepository $authorRepository)
     {
-        $authors = $this->getDoctrine()
-        ->getRepository(Author::class)
-        ->findAll();
+        $authors = $authorRepository->findAll();
         return $this->render('author/index.html.twig', [
             'authors' => $authors,
         ]);
@@ -31,8 +28,7 @@ class AuthorController extends AbstractController
      */
     public function createAuthor(Request $request)
     {
-        $author = new Author();
-        $form = $this->createForm(AuthorType::class, $author);
+        $form = $this->createForm(AuthorType::class, new Author());
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $authorData= $form->getData();
@@ -64,4 +60,5 @@ class AuthorController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    
 }
