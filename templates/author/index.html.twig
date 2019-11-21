@@ -1,9 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AuthorController!{% endblock %}
+{% block title %}Список авторов{% endblock %}
 
 {% block body %}
-
     <div class="container mt-5">
         <h1>Список авторов</h1>
         <table class="table table-striped">
@@ -16,20 +15,21 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>
-                        <div class="float-right">
-                            <button type="button" class="btn btn-primary">Редактировать</button>
-                            <button type="button" class="btn btn-primary">Список книг</button>
-                        </div>
-                    </td>
-                </tr>
-
+                {% for author in authors %}
+                    <tr>
+                        <th scope="row">{{ author.id }}</th>
+                        <td>{{ author.firstName }}</td>
+                        <td>{{ author.lastName }}</td>
+                        <td>
+                            <div class="float-right">
+                                <a href="{{ path('update_author', { 'author': author.id }) }}"><button type="button" class="btn btn-primary">Редактировать</button></a>
+                                <button type="button" class="btn btn-primary">Список книг</button>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
-        <button type="button" class="btn btn-primary">Добавить автора</button>
+        <a href="{{ path('create_author')}}"><button type="button" class="btn btn-primary">Добавить автора</button></a> 
     </div>
 {% endblock %}

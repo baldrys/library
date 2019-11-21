@@ -7,6 +7,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Author;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use App\Form\AuthorType;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/authors")
@@ -14,32 +16,55 @@ use Symfony\Component\HttpFoundation\Response;
 class AuthorController extends AbstractController
 {
     /**
-     * @Route("/", name="author")
+     * @Route("/", name="authors")
      */
     public function index()
     {
+        $authors = $this->getDoctrine()
+        ->getRepository(Author::class)
+        ->findAll();
         return $this->render('author/index.html.twig', [
-            'controller_name' => 'AuthorController',
+            'authors' => $authors,
         ]);
     }
 
     /**
      * @Route("/create", name="create_author")
      */
-    public function createAuthor()
+    public function createAuthor(Request $request)
     {
-        $entityManager = $this->getDoctrine()->getManager();
         $author = new Author();
-        $author->setfirstName('Stiven');
-        $author->setlastName('King');
-        
-        // tell Doctrine you want to (eventually) save the Product (no queries yet)
-        $entityManager->persist($author);
+        $form = $this->createForm(AuthorType::class, $author);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $authorData= $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($authorData);
+            $entityManager->flush();
+            return $this->redirectToRoute('authors');
+        }
+        return $this->render('author/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 
-        // actually executes the queries (i.e. the INSERT query)
-        $entityManager->flush();
-
-        return new Response('Saved new product with id '.$author->getId());
+    /**
+     * @Route("/{author}/update", name="update_author")
+     */
+    public function updateAuthor(Request $request, Author $author)
+    {
+        $form = $this->createForm(AuthorType::class, $author);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $authorData= $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($authorData);
+            $entityManager->flush();
+            return $this->redirectToRoute('authors');
+        }
+        return $this->render('author/update.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
