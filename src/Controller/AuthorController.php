@@ -10,9 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Form\AuthorType;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * @Route("/authors")
- */
+
 class AuthorController extends AbstractController
 {
     /**
@@ -29,7 +27,7 @@ class AuthorController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="create_author")
+     * @Route("/authors/create", name="create_author")
      */
     public function createAuthor(Request $request)
     {
@@ -49,7 +47,7 @@ class AuthorController extends AbstractController
     }
 
     /**
-     * @Route("/{author}/update", name="update_author")
+     * @Route("/authors/{author}/update", name="update_author")
      */
     public function updateAuthor(Request $request, Author $author)
     {
@@ -68,12 +66,14 @@ class AuthorController extends AbstractController
     }
 
     /**
-     * @Route("/{author}/books", name="author_book")
+     * @Route("/authors/{author}/books", name="author_books")
      */
     public function getBooks(Author $author)
     {
+        $books =  $author->getBooks();
         return $this->render('author/books.html.twig', [
             'author' => $author,
+            'books' => $books
         ]);
     }
 }

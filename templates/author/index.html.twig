@@ -23,7 +23,7 @@
                         <td>
                             <div class="float-right">
                                 <a href="{{ path('update_author', { 'author': author.id }) }}"><button type="button" class="btn btn-primary">Редактировать</button></a>
-                                <button type="button" class="btn btn-primary">Список книг</button>
+                                <a href="{{ path('author_books', { 'author': author.id }) }}"><button type="button" class="btn btn-primary">Список книг</button></a>
                             </div>
                         </td>
                     </tr>

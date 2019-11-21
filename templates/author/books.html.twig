@@ -16,20 +16,23 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>
-                        <div class="float-right">
-                            <button type="button" class="btn btn-primary">Редактировать</button>
-                            <button type="button" class="btn btn-danger">Удалить</button>
-                        </div>
-                    </td>
-                </tr>
-
+                {% for book in books %}
+                    <tr>
+                        <th scope="row">{{ book.id }}</th>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.year }}</td>
+                        <td>
+                            <div class="float-right">
+                                <a href="#"><button type="button" class="btn btn-primary">Редактировать</button></a>
+                                <a href="#"><button type="button" class="btn btn-danger">Удалить</button></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
-        <button type="button" class="btn btn-primary">Добавить книгу </button>
+        <a href="#"><button type="button" class="btn btn-primary">Добавить книгу </button></a>
+
+        
     </div>
 {% endblock %}
