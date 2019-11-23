@@ -18,5 +18,5 @@ import App from './App.vue'
 
 new Vue({
     el: '#app',
-    comments: {App}
+    components: {App}
 })
