@@ -15,8 +15,10 @@ console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 
 import Vue from 'vue'
 import App from './App.vue'
+import router from './router'
 
 new Vue({
     el: '#app',
-    components: {App}
+    components: {App},
+    router
 })
