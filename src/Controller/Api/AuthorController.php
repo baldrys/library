@@ -36,49 +36,47 @@ class AuthorController extends AbstractController
     /**
      * @Rest\Get("/authors", name="get_authors")
      */
-    public function index(AuthorRepository $authorRepository)
+    public function getAuthors(AuthorRepository $authorRepository)
     {
         $authors = $authorRepository->findAll();
         $data = $this->serializer->serialize($authors, JsonEncoder::FORMAT);
         return new JsonResponse($data, Response::HTTP_OK, [], true);
     }
 
-    // /**
-    //  * @Route("/authors/create", name="create_author")
-    //  */
-    // public function createAuthor(Request $request)
-    // {
-    //     $form = $this->createForm(AuthorType::class, new Author());
-    //     $form->handleRequest($request);
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $authorData= $form->getData();
-    //         $entityManager = $this->getDoctrine()->getManager();
-    //         $entityManager->persist($authorData);
-    //         $entityManager->flush();
-    //         return $this->redirectToRoute('authors');
-    //     }
-    //     return $this->render('author/create.html.twig', [
-    //         'form' => $form->createView(),
-    //     ]);
-    // }
+    /**
+     * @Rest\Post("/authors", name="create_author")
+     */
+    public function createAuthor(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        $form = $this->createForm(AuthorType::class, new Author());
+        $form->submit($data);
+        if (!($form->isSubmitted() && $form->isValid())) {
+            return new JsonResponse('Parameters are invalid', Response::HTTP_BAD_REQUEST);
+        }
+        $authorData = $form->getData();
+        $this->em->persist($authorData);
+        $this->em->flush();
+        $data = $this->serializer->serialize($authorData, JsonEncoder::FORMAT);
+        return new JsonResponse($data, Response::HTTP_CREATED, [], true);
+    }
 
-    // /**
-    //  * @Route("/authors/{author}/update", name="update_author")
-    //  */
-    // public function updateAuthor(Request $request, Author $author)
-    // {
-    //     $form = $this->createForm(AuthorType::class, $author);
-    //     $form->handleRequest($request);
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $authorData= $form->getData();
-    //         $entityManager = $this->getDoctrine()->getManager();
-    //         $entityManager->persist($authorData);
-    //         $entityManager->flush();
-    //         return $this->redirectToRoute('authors');
-    //     }
-    //     return $this->render('author/update.html.twig', [
-    //         'form' => $form->createView(),
-    //     ]);
-    // }
+    /**
+     * @Rest\Patch("/authors/{author}",  name="update_author")
+     */
+    public function updateAuthor(Request $request, Author $author)
+    {
+        $data = json_decode($request->getContent(), true);
+        $form = $this->createForm(AuthorType::class, $author);
+        $form->submit($data);
+        if (!($form->isSubmitted() && $form->isValid())) {
+            return new JsonResponse('Parameters are invalid', Response::HTTP_BAD_REQUEST);
+        }
+        $authorData = $form->getData();
+        $this->em->persist($authorData);
+        $this->em->flush();
+        $data = $this->serializer->serialize($authorData, JsonEncoder::FORMAT);
+        return new JsonResponse($data, Response::HTTP_CREATED, [], true);
+    }
     
 }
