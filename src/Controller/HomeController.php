@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/{vue?}", name="index")
+     * @Route("/{vue?}", requirements={"vueRouting"="^(?!api|_(profiler|wdt)).*"})
      * @return Response
      */
     public function index()
