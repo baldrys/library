@@ -14,3 +14,8 @@ framework:
     #fragments: true
     php_errors:
         log: true
+    serializer:
+        circular_reference_handler: App\Utils\CircularReferenceHandler
+    validation:
+        enabled: true
+        enable_annotations: false

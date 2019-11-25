@@ -15,19 +15,23 @@ class AuthorType extends AbstractType
     {
         $builder
             ->add('firstName', TextType::class, [
-                    'required' => true,
-                ])
+                'constraints' => [
+                    new \Symfony\Component\Validator\Constraints\NotBlank(),
+                ],
+            ])
             ->add('lastName', TextType::class, [
-                    'required' => true,
-                ])
-            ->add('save', SubmitType::class);
-        ;
+                'constraints' => [
+                    new \Symfony\Component\Validator\Constraints\NotBlank(),
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Author::class,
+            'csrf_protection' => false,
+            'multiple' => true
         ]);
     }
 }

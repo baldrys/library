@@ -17,18 +17,23 @@ class BookType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'required' => true,
+                'constraints' => [
+                    new \Symfony\Component\Validator\Constraints\NotBlank(),
+                ],
             ])
             ->add('year', IntegerType::class, [
-                'required' => true,
-            ])
-            ->add('save', SubmitType::class);
+                'constraints' => [
+                    new \Symfony\Component\Validator\Constraints\NotBlank(),
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Book::class,
+            'csrf_protection' => false,
+            'multiple' => true
         ]);
     }
 }
