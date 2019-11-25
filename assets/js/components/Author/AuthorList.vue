@@ -1,5 +1,5 @@
 <template>
-    <div class="container mt-5">
+    <div>
         <h1>Список авторов</h1>
         <table class="table table-striped">
             <thead>
@@ -13,16 +13,18 @@
             <tbody>
                 <AuthorItem v-bind:key="author.id" 
                             v-for="author in authors" 
-                            v-bind:author="author" />
+                            v-bind:author="author"
+                            @accept-author-to-edit='acceptAuthorToEdit'
+                            />
             </tbody>
         </table>
-        <a href="#"><button type="button" class="btn btn-primary">Добавить автора</button></a> 
     </div>
 </template>
 
 <script>
 
 import AuthorItem from './AuthorItem';
+
 export default {
     name: 'AuthorList',
     components:{
@@ -30,7 +32,12 @@ export default {
     },
     props: [
         'authors'
-    ]
+    ],
+    methods: {
+        acceptAuthorToEdit (author) {
+            this.$emit('accept-author-to-edit', author)
+        }
+    }
 }
 </script>
 
