@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Список книг</h1>
+        <h1>Список книг автора {{ author.firstName }} {{ author.lastName }}</h1>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -12,7 +12,7 @@
             </thead>
             <tbody>
                 <BookItem v-bind:key="book.id" 
-                            v-for="book in books" 
+                            v-for="book in author.books" 
                             v-bind:book="book" 
                             @delete-book='deleteBook'
                             @accept-book-to-edit='acceptBookToEdit'
@@ -31,7 +31,7 @@ export default {
         BookItem
     },
     props: [
-        'books'
+        'author'
     ],
     methods:{
         deleteBook: function(oldBook) {

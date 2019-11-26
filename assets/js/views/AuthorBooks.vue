@@ -1,7 +1,7 @@
 <template>
     <div class="container mt-5">
         <BookList 
-            v-bind:books="books" 
+            v-bind:author="author" 
             @delete-book='deleteBook'
             @accept-book-to-edit='acceptBookToEdit'
         />
@@ -29,8 +29,8 @@ export default {
     ],
     data() {
         return {
-            books: [],
-            book: Object
+            book: Object,
+            author: Object
         }
     },
     mounted() {
@@ -40,10 +40,10 @@ export default {
     methods: {
         fetchBooks: function () {
             axios
-                .get('/api/authors/'+this.id+'/books')
+                .get('/api/authors/'+this.id)
                 .then(
                     response => (
-                        this.books = response.data
+                        this.author = response.data
                         )
                 );
         },

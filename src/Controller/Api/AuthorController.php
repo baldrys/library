@@ -43,6 +43,15 @@ class AuthorController extends AbstractController
     }
 
     /**
+     * @Rest\Get("/authors/{author}", name="get_author")
+     */
+    public function getAuthor(Author $author)
+    {
+        $data = $this->serializer->serialize($author, JsonEncoder::FORMAT);
+        return new JsonResponse($data, Response::HTTP_OK, [], true);
+    }
+
+    /**
      * @Rest\Post("/authors", name="create_author")
      */
     public function createAuthor(Request $request)
